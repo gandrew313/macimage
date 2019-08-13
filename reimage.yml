@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Check if Brew Exists
+    stat:
+        path: /usr/local/bin/brew
+    register: brewresult
+  - name: Install Homebrew 
+    shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    when: not brewresult.stat.exists
